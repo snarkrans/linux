@@ -19,7 +19,7 @@ EDITOR=nvim crontab -e
 @reboot sleep 3 && /home/snark/snl/sc/sn-kindle.sh &
  
 Зависимости - calibre, mutt, inotify-tools
-Конфиг для muut лежит в файле muttrc_bac
+Конфиг для muut лежит в файле muttrc
 
 Проверка журнала:
 journalctl -b | grep "send to kindle"
