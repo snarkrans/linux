@@ -1,0 +1,67 @@
+--------------sn_01-----------------------
+https://archlinux.org/feeds/news/ "(news)" 
+
+--------------youtube-----------------------
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "Luke Smith" "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "DistroTube" "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkK9UDm_ZNrq_rIXCz3xCGA "Bryan Lunduke" "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCylGUf9BvQooEFjgdNudoQg "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCJdmdUp5BrsWsYVQUylCMLg "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCX_WM2O-X96URC5n66G-hvw "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCjSEJkpGbcZhvo0lr-44X_w "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCS97tchJDq17Qms3cux8wcA "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3pasXoRUTKPpQaKtlJz62g "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5dgoavpIertLkNDDITDoBQ "(youtube)" "(youtube_tec)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7NlUDWijxgMdcegXSzObKA "(youtube)" "(youtube_tec)"
+---
+https://www.youtube.com/feeds/videos.xml?channel_id=UCK8xpGAv8Oz7iMPgMw9j0LA "(youtube)" "(youtube_ph)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "(youtube)" "(youtube_ph)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "(youtube)" "(youtube_ph)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCGLcx_fFZ3GlLXO5anHSm9w "(youtube)" "(youtube_ph)"
+---
+https://lbryfeed.melroy.org/channel/odysee/@Lunduke:e "~odysee: Lunduke" "(youtube)" "(odysee)" "(odysee_tec)"
+https://lbryfeed.melroy.org/channel/odysee/@IntellectualDeepWeb:8 "~odysee: IntellectualDeepWeb" "(youtube)" "(odysee)" "(odysee_ph)"
+
+
+--------------podcasts--------------------
+
+https://www.podcastone.com/podcast?categoryID2=1237 "~podcast: The Jordan Harbinger Show " "(podcast)" "(podcast)"
+
+--------------books-----------------------
+http://feed.rutracker.cc/atom/f/2434.atom "(rutracker-books)" # Древний мир. Античность
+http://feed.rutracker.cc/atom/f/1684.atom "(rutracker-books)" # Искусствоведение. Культурология
+http://feed.rutracker.cc/atom/f/1967.atom "(rutracker-books)" # Исторические источники (книги, периодика)
+http://feed.rutracker.cc/atom/f/2427.atom "(rutracker-books)" # История Европы
+http://feed.rutracker.cc/atom/f/2444.atom "(rutracker-books)" # История Нового и Новейшего времени
+http://feed.rutracker.cc/atom/f/2524.atom "(rutracker-books)" # Литературоведение
+http://feed.rutracker.cc/atom/f/2471.atom "(rutracker-books)" # Социология
+http://feed.rutracker.cc/atom/f/1683.atom "(rutracker-books)" # Средние века
+http://feed.rutracker.cc/atom/f/995.atom "(rutracker-books)" # Философия 
+http://feed.rutracker.cc/atom/f/2446.atom "(rutracker-books)" # Фольклор. Эпос. Мифология
+
+--------------audio-books-----------------
+http://feed.rutracker.cc/atom/f/1909.atom "(rutracker-a_books)" #
+http://feed.rutracker.cc/atom/f/148.atom "(rutracker-a_books)" #
+http://feed.rutracker.cc/atom/f/400.atom "(rutracker-a_books)" #
+http://feed.rutracker.cc/atom/f/1501.atom "(rutracker-a_books)" #
+
+
+--------------video-----------------------
+http://feed.rutracker.cc/atom/f/1570.atom "(rutracker-books)" # ОС и программы семейства UNIX
+http://feed.rutracker.cc/atom/f/73.atom "(rutracker-video)" # Архив (Документальные фильмы)
+http://feed.rutracker.cc/atom/f/103.atom "(rutracker-video)" # Документальные (DVD)
+http://feed.rutracker.cc/atom/f/2538.atom "(rutracker-video)" # Искусство, история искусств
+http://feed.rutracker.cc/atom/f/56.atom "(rutracker-video)" # Научно-популярные фильмы
+http://feed.rutracker.cc/atom/f/249.atom "(rutracker-video)" # BBC
+http://feed.rutracker.cc/atom/f/552.atom "(rutracker-video)" # Discovery
+http://feed.rutracker.cc/atom/f/500.atom "(rutracker-video)" # National Geographic
+http://feed.rutracker.cc/atom/f/2112.atom "(rutracker-video)" # История: Древний мир / Античность / Средневековье
+http://feed.rutracker.cc/atom/f/1327.atom "(rutracker-video)" # История: Новое и Новейшее время
+
+
+
