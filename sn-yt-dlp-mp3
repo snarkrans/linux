@@ -1,0 +1,5 @@
+#!/bin/bash
+
+read path
+yt-dlp -f 'ba' -x --audio-format mp3 "$path" #-o '%(id)s.mp3'
+

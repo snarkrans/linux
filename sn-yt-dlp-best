@@ -1,0 +1,7 @@
+#!/bin/bash
+
+read path
+yt-dlp -f 'bv*+ba' -i --write-auto-sub --sub-langs ru,en "$path"
+
+#yt-dlp -f 'bv*+ba' -i --write-auto-sub "$path"
+
