@@ -1,0 +1,38 @@
+source $HOME/.config/nvim/vim-plug/plugins.vim
+
+syntax on
+set number
+set clipboard=unnamedplus
+set linebreak
+set ignorecase
+set ttyfast                 " Speed up scrolling in Vim
+set nohlsearch
+"set ft=bash
+map <F7> :set ft=nosyntax
+
+set termguicolors
+let g:codedark_italics = 1
+colorscheme codedark
+
+map <F1> :FZF  
+map <F2> :Rg 
+map <F3> :BLines 
+map <F5> :'<,'>write! >> ~/kindle/vim.txt
+
+"map <F4> :NERDTreeToggle<CR>
+"map <F5> :Ag
+"map <F6> :Telescope live_grep
+map <F6> :Telescope
+
+"map j gj
+"map k gk
+
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+
