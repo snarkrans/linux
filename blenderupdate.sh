@@ -2,8 +2,8 @@
 # Скрипт качает последнюю версию блендера в директорию ~/blender/downloads/alpha/.
 # Зависимости: axel wget
 
-pacman -Q | grep axel > /dev/null 2>&1 || echo "install axel - light command line download accelerator"
-pacman -Q | grep wget > /dev/null 2>&1 || echo "install wget - the non-interactive network downloader."
+pacman -Q | grep axel > /dev/null 2>&1 || echo "dependency required: axel - light command line download accelerator"
+pacman -Q | grep wget > /dev/null 2>&1 || echo "dependency required: wget - the non-interactive network downloader."
 echo
 ls -l ~/blender/downloads/alpha/ > /dev/null 2>&1 || mkdir -p ~/blender/downloads/alpha/
 rm -r ~/blender/downloads/alpha/* > /dev/null 2>&1
