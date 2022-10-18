@@ -110,6 +110,8 @@ options root=LABEL=arch rw # arch - метка корневого раздела
 $ pacman -S grub 
 $ grub-install /dev/sdx # диск (не раздел) с корневым разделом
 $ grub-mkconfig -o /boot/grub/grub.cfg
+	*edit /etc/default/grub add or uncomment GRUB_DISABLE_OS_PROBER=false save that file then run sudo update-grub or sudo grub-mkconfig -o /boot/grub/grub.cfg 
+
 
 * Установка grub на UEFI
 $ pacman -S grub efibootmgr
@@ -197,4 +199,12 @@ mount -o subvol=@home,compress=zstd /dev/sda2 /mnt/home
 После переустановки загрузчика:
 mkinitcpio -P
 
-
+# настройка grub
+$ sudo nvim /etc/default/grub
+GRUB_DISABLE_SUBMENU=y # отключает субменю. все ядра в одном меню.
+#GRUB_DEFAULT=saved # последнее выбранное ядро будет дефолтным
+#GRUB_SAVEDEFAULT=true # последнее выбранное ядро будет дефолтным
+GRUB_DEFAULT=2 # пункт по умолчанию (нумерация с "0")
+GRUB_TIMEOUT=8 $ время ожидания
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+$ awk '/menuentry/ && /class/ {count++; print count-1"****"$0 }' /boot/grub/grub.cfg # покажет список ядер с номирами для GRUB_DEFAULT=
