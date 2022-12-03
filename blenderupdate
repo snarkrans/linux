@@ -11,8 +11,7 @@ axel -n 10 https://builder.blender.org/download/daily/$var
 
 axel -n 10 https://builder.blender.org/download/daily/$var.sha256
 echo $(cat $var.sha256) $var > $var.sha256
-sha256sum -c $var.sha256 || echo "sha256sum corrupt!"
-echo "sha256sum OK!"
+sha256sum -c $var.sha256 || echo "sha256sum corrupt!" > log_sha
 
 tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
 #cp ~/blender/BlenderAlpha.desktop ~/.local/share/applications
