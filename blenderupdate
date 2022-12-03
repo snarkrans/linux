@@ -10,8 +10,7 @@ var=$(wget -qO- https://builder.blender.org/download/daily/ | grep -o -G 'blende
 axel -n 10 https://builder.blender.org/download/daily/$var
 
 axel -n 10 https://builder.blender.org/download/daily/$var.sha256
-sha=$(cat $var.sha256)
-echo $sha $var > $var.sha256
+echo $(cat $var.sha256) $var > $var.sha256
 sha256sum -c $var.sha256 || exit
 
 tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
