@@ -14,7 +14,7 @@ echo $(cat $var.sha256) $var > $var.sha256
 sha256sum -c $var.sha256 || exit
 
 tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
-cp ~/blender/BlenderAlpha.desktop ~/.local/share/applications
+#cp ~/blender/BlenderAlpha.desktop ~/.local/share/applications
 #sed -ie 's|Exec.*|Exec=~/blender/downloads/alpha/blender-*/blenderSSSSSSSSSSS %f |g' BlenderAlpha.desktop
 
 
