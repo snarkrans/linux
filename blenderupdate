@@ -17,6 +17,10 @@ sha256sum -c $var.sha256 || echo "sha256sum corrupt!" > log_sha
 # blender extract
 tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
 
+echo start blender command: '$(find ~/blender/* -name 'blender'| head -1)'
+
+
+
 
 
 
