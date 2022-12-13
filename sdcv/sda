@@ -3,12 +3,11 @@
 # mpv trans fzf - зависимости
 
 list=/home/snark/.stardict/dic/list # список словарей
-sound=/mnt/drive_1_0/linux/soft/dict/Sound_En # путь к .wav файлам произношения
-
+#sound=/mnt/drive_1_0/linux/soft/dict/Sound_En # путь к .wav файлам произношения
 lang="$(cat $list | fzf)" # выбор словаря
 read word 
-mpv $(find $sound -name $word.wav) # > /dev/null 2>&1 # озвучка через .wav файлы
-#trans -speak "$word"  > /dev/null 2>&1 # озвучка trans, онлайн.
+#mpv $(find $sound -name $word.wav) # > /dev/null 2>&1 # озвучка через .wav файлы
+trans -speak "$word"  > /dev/null 2>&1 # озвучка trans, онлайн.
 printf "%s\t%s\n" "$word" "$(trans -brief :ru "$word")" >> ~/sn/en.txt # файл истории
 
 if [ "$lang" != "All" ] ; then
@@ -16,6 +15,5 @@ sdcv -ucn "$lang" --utf8-output --color "$word" | less -R
 else
 sdcv --utf8-output --color "$word" | less -R 
 fi
-
 clear
 sdd

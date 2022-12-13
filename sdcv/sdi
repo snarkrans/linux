@@ -1,22 +1,22 @@
 #!/bin/bash
-# выбор словаря через позиционный параметр. без параметра - En-Ru. параметр <r> - Ru-En.
-#lang="$(echo -e ":ru\n:en" |fzf)" # - пример выбора через fzf
-
-if [ "$1" != "r" ] ; then
+echo Italiano
 read var
-
-#mpv $(find /mnt/drive_1_0/linux/soft/dict/Sound_En -name $var.wav) # > /dev/null 2>&1 # озвучка
-trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" != 00001000 ] ; then
+trans it:it -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
 printf "%s\t%s\n" "$var" "$(trans -brief :it "$var")" >> ~/sn/it.txt # - история
 sdcv -ucn "Universal (It-Ru)" --utf8-output --color "$var" | less -R 
 
 else
-read var 
+trans it:it -speak $(trans -brief :it "$var") > /dev/null 2>&1
 sdcv -ucn "Universal (Ru-It)" --utf8-output --color "$var" | less -R
 fi
-
 clear
-sd
+sdi
+
+###
+Если определение раскладки не работает, проверь значение LED в выводе xset -q
+
 
 
 

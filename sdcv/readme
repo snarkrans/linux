@@ -1,0 +1,13 @@
+Зависимости: mpv trans fzf sdcv
+~/.stardict/dic # путь к словарям
+https://snarkrans.info/index.php/s/E9QYyLBz3wk2qKi # ссылка на словари
+https://snarkrans.info/index.php/s/BzBCaRimJbppLEn # ссылка на озвучку человеком
+Если определение раскладки не работает, проверь значение LED в выводе xset -q
+
+mpv $(find /mnt/drive_1_0/linux/soft/dict/Sound_En -name $var.wav) # > /dev/null 2>&1 # озвучка человеком.
+trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн 
+
+Скрипты:
+sd Английский
+sdi - Итальянский
+sdd - Немецкий

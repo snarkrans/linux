@@ -1,0 +1,15 @@
+#!/bin/bash
+# перевод через trans, онлай.
+
+read var
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" != 00001000 ] ; then
+echo "$var" - "$(trans -brief :ru "$var")"
+
+else
+echo "$var" - "$(trans -brief :en "$var")"
+fi
+sn-trans
+
+###
+printf "%s\t%s\n" "$var" "$(trans -brief :ru "$var")" >> ~/sn/en.txt # - история

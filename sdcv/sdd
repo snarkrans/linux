@@ -1,21 +1,18 @@
 #!/bin/bash
-# ~/.stardict/dic - путь к словарям
-# mpv trans fzf - зависимости
+echo Deutsch
+read var
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" != 00001000 ] ; then
+trans de:de -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief :it "$var")" >> ~/sn/de.txt # - история
+sdcv -ucn "Universal (De-Ru)" --utf8-output --color "$var" | less -R 
 
-list=/home/snark/.stardict/dic/list # список словарей
-sound=/mnt/drive_1_0/linux/soft/dict/Sound_En # путь к .wav файлам произношения
-
-lang="$(cat $list | fzf)" # выбор словаря
-read word 
-mpv $(find $sound -name $word.wav) # > /dev/null 2>&1 # озвучка через .wav файлы
-#trans -speak "$word"  > /dev/null 2>&1 # озвучка trans, онлайн.
-printf "%s\t%s\n" "$word" "$(trans -brief :ru "$word")" >> ~/sn/en.txt # файл истории
-
-if [ "$lang" != "All" ] ; then
-sdcv -ucn "$lang" --utf8-output --color "$word" | less -R 
 else
-sdcv --utf8-output --color "$word" | less -R 
+trans de:de -speak $(trans -brief :de "$var") > /dev/null 2>&1
+sdcv -ucn "Universal (Ru-De)" --utf8-output --color "$var" | less -R
 fi
-
 clear
 sdd
+
+###
+Если определение раскладки не работает, проверь значение LED в выводе xset -q

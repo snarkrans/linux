@@ -1,4 +1,5 @@
 #!/bin/bash
+echo English
 read var
 lang=$(xset -q|grep LED| awk '{ print $10 }')
 if [ "$lang" != 00001000 ] ; then
@@ -7,11 +8,18 @@ printf "%s\t%s\n" "$var" "$(trans -brief :ru "$var")" >> ~/sn/en.txt # - ист�
 sdcv -ucn "LingvoUniversal (En-Ru)" --utf8-output --color "$var" | less -R 
 
 else
+trans en:en -speak $(trans -brief :en "$var") > /dev/null 2>&1
 sdcv -ucn "LingvoUniversal (Ru-En)" --utf8-output --color "$var" | less -R 
 fi
 clear
 sd
 
 ###
-mpv $(find /mnt/drive_1_0/linux/soft/dict/Sound_En -name $var.wav) # > /dev/null 2>&1 # озвучка
+~/.stardict/dic # путь к словарям
+Зависимости: mpv trans fzf sdcv
+Если определение раскладки не работает, проверь значение LED в выводе xset -q
+
+mpv $(find /mnt/drive_1_0/linux/soft/dict/Sound_En -name $var.wav) # > /dev/null 2>&1 # озвучка человеком.
+trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн 
+
 
