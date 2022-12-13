@@ -1,7 +1,7 @@
 Зависимости: mpv trans fzf sdcv
-~/.stardict/dic # путь к словарям
-https://snarkrans.info/index.php/s/E9QYyLBz3wk2qKi # ссылка на словари
-https://snarkrans.info/index.php/s/BzBCaRimJbppLEn # ссылка на озвучку человеком
+~/.stardict/dic # Путь к словарям
+https://snarkrans.info/index.php/s/E9QYyLBz3wk2qKi # Ссылка на словари. Словари нужно скачать в ~/.stardict/dic
+https://snarkrans.info/index.php/s/BzBCaRimJbppLEn # Ссылка на озвучку человеком
 Если определение раскладки не работает, проверь значение LED в выводе xset -q
 
 Скрипты:
