@@ -5,6 +5,7 @@ https://snarkrans.info/index.php/s/BzBCaRimJbppLEn # Ссылка на озву�
 Если определение раскладки не работает, проверь значение LED в выводе xset -q
 
 Видео справка:
+https://youtu.be/T1IpesVtsZA
 https://www.youtube.com/watch?v=Y2_GcIEtcpk
 
 export PATH="$PATH:$(du ~/snl/sc | cut -f2 | tr '\n' ':' | sed 's/:*$//')" # добавить в .bashrc
