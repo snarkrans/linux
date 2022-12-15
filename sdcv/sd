@@ -1,4 +1,6 @@
 #!/bin/bash
+
+en(){
 echo English
 read var
 lang=$(xset -q|grep LED| awk '{ print $10 }')
@@ -6,21 +8,51 @@ if [ "$lang" != 00001000 ] ; then
 trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
 printf "%s\t%s\n" "$var" "$(trans -brief :ru "$var")" >> ~/sn/en.txt # - история
 sdcv -ucn "LingvoUniversal (En-Ru)" --utf8-output --color "$var" | less -RK
-
 else
 trans en:en -speak $(trans -brief :en "$var") > /dev/null 2>&1
 sdcv -ucn "LingvoUniversal (Ru-En)" --utf8-output --color "$var" | less -RK
 fi
 clear
-sd
+en
+}
 
-###
-~/.stardict/dic # путь к словарям
-Зависимости: mpv trans fzf sdcv
-Если определение раскладки не работает, проверь значение LED в выводе xset -q
+it(){
+echo Italiano
+read var
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" != 00001000 ] ; then
+trans it:it -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief :it "$var")" >> ~/sn/it.txt # - история
+sdcv -ucn "Universal (It-Ru)" --utf8-output --color "$var" | less -RK 
+else
+trans it:it -speak $(trans -brief :it "$var") > /dev/null 2>&1
+sdcv -ucn "Universal (Ru-It)" --utf8-output --color "$var" | less -RK
+fi
+clear
+it
+}
 
-sound=/mnt/drive_1_0/linux/soft/dict/Sound_En
-mpv $(find $sound -name $var.wav) # > /dev/null 2>&1 # озвучка человеком.
-trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн 
+de(){
+echo Deutsch
+read var
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" != 00001000 ] ; then
+trans de:de -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief :it "$var")" >> ~/sn/de.txt # - история
+sdcv -ucn "Universal (De-Ru)" --utf8-output --color "$var" | less -RK 
+else
+trans de:de -speak $(trans -brief :de "$var") > /dev/null 2>&1
+sdcv -ucn "Universal (Ru-De)" --utf8-output --color "$var" | less -RK
+fi
+clear
+de
+}
+
+language="$(echo -e "en\nit\nde" | fzf)"
+$language
+
+
+
+
 
 
