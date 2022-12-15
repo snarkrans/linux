@@ -9,5 +9,9 @@ sd Английский
 sdi - Итальянский
 sdd - Немецкий
 
+Видео справка:
+https://www.youtube.com/watch?v=Y2_GcIEtcpk
+
+export PATH="$PATH:$(du ~/snl/sc | cut -f2 | tr '\n' ':' | sed 's/:*$//')" # добавить в .bashrc
 mpv $(find /mnt/drive_1_0/linux/soft/dict/Sound_En -name $var.wav) # > /dev/null 2>&1 # озвучка человеком.
 trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн 
