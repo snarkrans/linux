@@ -81,7 +81,7 @@ all(){
     alll
 }
 
-language="$(echo -e "en\nit\nde\nuk\nall" | fzf)"
+language="$(echo -e "en\nit\nde\nall" | fzf)"
 $language
 
 
