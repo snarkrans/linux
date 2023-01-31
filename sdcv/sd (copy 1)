@@ -69,16 +69,13 @@ uk
 }
 
 all(){
-    echo All
-    dict=$(sdcv -l | fzf)
-    alll(){
-	echo $dict
-	read var
-	sdcv -ucn $dict --utf8-output --color "$var" | less -RK
-	clear
-	alll
-}
-    alll
+echo All
+dict=$(sdcv -l | fzf)
+echo $dict
+read var
+sdcv -ucn $dict --utf8-output --color "$var" | less -RK
+clear
+all
 }
 
 language="$(echo -e "en\nit\nde\nuk\nall" | fzf)"
