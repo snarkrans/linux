@@ -70,11 +70,11 @@ uk
 
 all(){
     echo All
-    dict=$(sdcv -l | fzf)
+    dict=$(sdcv -l | fzf | cut -d" " -f1,2)
     alll(){
 	echo $dict
 	read var
-	sdcv -ucn $dict --utf8-output --color "$var" | less -RK
+	sdcv -ucn "$dict" --utf8-output --color "$var" | less -RK
 	clear
 	alll
 }
