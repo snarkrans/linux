@@ -1,0 +1,37 @@
+#!/bin/bash
+#dependency: axel, wget.
+
+nc=6 # number of connections
+# dependency check and blender download
+axel -V > /dev/null 2>&1 || echo "missing dependency: axel - light command line download accelerator"
+wget --version > /dev/null 2>&1 || echo "missing dependency: wget - the non-interactive network downloader."
+ls -l ~/blender/downloads/alpha/ > /dev/null 2>&1 || mkdir -p ~/blender/downloads/alpha/
+rm -r ~/blender/downloads/alpha/* > /dev/null 2>&1
+cd ~/blender/downloads/alpha/
+var=$(wget -qO- https://builder.blender.org/download/daily/ | grep -o -G 'blender-[^a-z]*-alpha+main.[0-9a-z]*-linux.x86_64-release.tar.xz' | awk 'NR==1')
+axel -n $nc https://builder.blender.org/download/daily/$var
+# sha256sum check
+axel -n $nc https://builder.blender.org/download/daily/$var.sha256
+echo $(cat $var.sha256) $var > $var.sha256
+sha256sum -c $var.sha256 || echo "sha256sum corrupt!" > log_sha
+# blender extract
+tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
+
+bl_path="$(find ~/blender/downloads/alpha/* -name 'blender'| head -1)"
+echo bl_path
+
+sed -i '/Exec/d' "$bl_path.desktop"
+sed -i '/Icon/d' "$bl_path.desktop"
+sed -i '/Name/d' "$bl_path.desktop"
+echo "Exec=$bl_path.test" %f >> $bl_path
+echo "Icon=$bl_path.svg" >> $bl_path
+echo "Name=Blender Alpha" >> $bl_path
+mv "$bl_path.desktop" ~/.local/share/applications
+
+
+
+
+
+
+
+
