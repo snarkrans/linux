@@ -25,7 +25,7 @@ sed -i '/Name/d' "$bl_path.desktop"
 echo "Exec=$bl_path" %f >> $bl_path.desktop
 echo "Icon=$bl_path.svg" >> $bl_path.desktop
 echo "Name=Blender Alpha" >> $bl_path.desktop
-cp "$bl_path.desktop" ~/.local/share/applications
+cp "$bl_path.desktop" ~/.local/share/applications/blender_alpha.desktop
 
 
 
