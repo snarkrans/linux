@@ -3,7 +3,7 @@
 alpha_update(){
 nc=6 # number of connections
 # dependency check and blender download
-fzf --version > /dev/null 2>&1 || echo "missing dependency: fzf -   Command-line fuzzy finder."
+fzf --version > /dev/null 2>&1 || echo "missing dependency: fzf - command-line fuzzy finder."
 axel -V > /dev/null 2>&1 || echo "missing dependency: axel - light command line download accelerator"
 wget --version > /dev/null 2>&1 || echo "missing dependency: wget - the non-interactive network downloader."
 ls -l ~/blender/downloads/alpha/ > /dev/null 2>&1 || mkdir -p ~/blender/downloads/alpha/
@@ -32,7 +32,7 @@ cp "$bl_path.desktop" ~/.local/share/applications/blender_alpha_snark.desktop
 blender_update(){
 nc=6 # number of connections
 # dependency check and blender download
-fzf --version > /dev/null 2>&1 || echo "missing dependency: fzf -   Command-line fuzzy finder."
+fzf --version > /dev/null 2>&1 || echo "missing dependency: fzf - command-line fuzzy finder."
 axel -V > /dev/null 2>&1 || echo "missing dependency: axel - light command line download accelerator"
 wget --version > /dev/null 2>&1 || echo "missing dependency: wget - the non-interactive network downloader."
 ls -l ~/blender/downloads/blender/ > /dev/null 2>&1 || mkdir -p ~/blender/downloads/alpha/
