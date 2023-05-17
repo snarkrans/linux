@@ -17,7 +17,7 @@ echo $(cat $var.sha256) $var > $var.sha256
 sha256sum -c $var.sha256 || echo "sha256sum corrupt!" > log_sha
 # blender extract
 tar -xf ~/blender/downloads/alpha/*.tar.xz -C ~/blender/downloads/alpha
-
+# icon
 bl_path="$(find ~/blender/downloads/alpha/* -maxdepth 1 -name 'blender' | head -1)"
 echo $bl_path
 sed -i '/Exec/d' "$bl_path.desktop"
@@ -28,7 +28,6 @@ echo "Icon=$bl_path.svg" >> $bl_path.desktop
 echo "Name=blender_alpha_snark" >> $bl_path.desktop
 cp "$bl_path.desktop" ~/.local/share/applications/blender_alpha_snark.desktop
 }
-
 blender_update(){
 nc=6 # number of connections
 # dependency check and blender download
@@ -46,7 +45,7 @@ axel -n $nc https://ftp.halifax.rwth-aachen.de/blender/release/$ver/$ver2
 #sha256sum -c *.sha256 | grep OK || echo "sha256sum corrupt!" > log_sha
 # blender extract
 tar -xf ~/blender/downloads/blender/*.tar.xz -C ~/blender/downloads/blender
-
+# icon
 bl_path="$(find ~/blender/downloads/blender/* -maxdepth 1 -name 'blender' | head -1)"
 echo $bl_path
 sed -i '/Exec/d' "$bl_path.desktop"
@@ -57,7 +56,6 @@ echo "Icon=$bl_path.svg" >> $bl_path.desktop
 echo "Name=blender_snark" >> $bl_path.desktop
 cp "$bl_path.desktop" ~/.local/share/applications/blender_snark.desktop
 }
-
 run="$(echo -e "alpha_update\nblender_update" | fzf )"
 $run
 
