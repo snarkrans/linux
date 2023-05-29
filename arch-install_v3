@@ -220,7 +220,7 @@ exec startxfce4
 ExecStart=
 ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin пользователь %I $TERM
 
-~/.zlogin
+~/.zlogin или ~/.bash_profile
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
 
