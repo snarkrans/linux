@@ -52,14 +52,14 @@ $ mkfs.vfat /dev/sdc1
 mkfs.btrfs -L "arch" /dev/sdc2
 
 - Монтируем новые разделы. На sdс2 будет корень, на sdс1 - загрузчик.
-mount /dev/sdc2 /mnt
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
-btrfs subvolume list /mnt
-umount /mnt
-mount -o subvol=@,compress=zstd /dev/sdc2 /mnt
-mkdir /mnt/home
-mount -o subvol=@home,compress=zstd /dev/sdc2 /mnt/home
+$ mount /dev/sdc2 /mnt
+$ btrfs subvolume create /mnt/@
+$ btrfs subvolume create /mnt/@home
+$ btrfs subvolume list /mnt
+$ umount /mnt
+$ mount -o subvol=@,compress=zstd /dev/sdc2 /mnt
+$ mkdir /mnt/home
+$ mount -o subvol=@home,compress=zstd /dev/sdc2 /mnt/home
 $ mkdir /mnt/boot
 $ mount /dev/sdс1 /mnt/boot
 
@@ -118,7 +118,7 @@ $ pacman -Syu nvidia nvidia-utils lib32-nvidia-utils # nvidia
 $ pacman -S mesa # amd 
 
 # настройка xinit
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
+$ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 .xinitrc
 exec startxfce4
 
