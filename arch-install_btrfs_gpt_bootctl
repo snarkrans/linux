@@ -77,26 +77,20 @@ $ arch-chroot /mnt
 - Настраиваем локаль и hostname. С помощью текстового редактора nano конфигурируем файлы locale.gen, locale.conf, vconsole.conf. 
 
 $ ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
-
 $ nano /etc/locale.gen # раскомментируем строку: en_US.UTF-8
 $ locale-gen # генерируем локаль
-
 $ nano /etc/locale.conf # добавляем строку: LANG=en_US.UTF-8
-
 $ nano /etc/vconsole.conf # добавляем строку: KEYMAP=us
-
 $ nano /etc/hostname # добавляем имя компьютера
 
 - Ставим networkmanager, sudo и прочее. Включаем службу NetworkManager, иначе после перезагрузки не будет сети. 
 - nmtui # утилита для подключения к вайфай и настройка сети
-
 $ pacman -S networkmanager bash-completion sudo iwd
 $ systemctl enable NetworkManager
 
 $ passwd # создаем пароль для рута
 
 - Устанавливаем и настраиваем загрузчик bootctl. этот загрузчик работает только с UEFI
-
 $ bootctl install
 $ nano /boot/loader/entries/arch.conf # сюда добавляем текст:
 title Archlinux
@@ -106,7 +100,6 @@ initrd /initramfs-linux.img
 options root=UUID="23539706-dc93-4182-bc08-9f77a17e75d8" subvol=@ rw # для btrfs
 
 - Настраиваем pacman, sudo, добавляем пользователя.
-
 $ useradd -m -g users -G audio,video,network,wheel,storage -s /bin/bash username # добавляем юзера. Вместо username, ставим свое.
 $ passwd username # создаем пароль юзера. можно использовать такой-же как и для рута.
 
