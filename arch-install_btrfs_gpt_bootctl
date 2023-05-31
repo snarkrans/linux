@@ -113,7 +113,7 @@ $ passwd username # создаем пароль юзера. можно испо�
 $ nano /etc/sudoers # раскомментируем строку: %wheel ALL=(ALL) ALL
 * $ visudo # тоже что и nano /etc/sudoers
 
-$ pacman -S xfce4 xorg xorg-xinit alacritty
+$ pacman -S xfce4 xorg xorg-xinit alacritty btrfs-progs
 $ pacman -Syu nvidia nvidia-utils lib32-nvidia-utils # nvidia
 $ pacman -S mesa # amd 
 
