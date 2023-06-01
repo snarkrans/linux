@@ -1,0 +1,22 @@
+Ставим smartmontools и запускаем сервис smartd.
+$ pacman -S smartmontools
+$ systemctl enable smartd.service
+$ systemctl start smartd.service
+
+Добавляем наш скрипт в конфиг smartd. Опция -M test будет отправлять тестовое сообшени при каждом запуске сервиса smartd.
+/etc/smartd.conf
+DEVICESCAN -a -m snark -M exec /usr/share/smartmontools/smartd_warning.d/smartdnotify -M test
+
+Создаем скрипт. Для работы скрипта нужны libnotify и совместимая среда рабочего стола.
+/usr/share/smartmontools/smartd_warning.d/smartdnotify
+#!/bin/sh
+sudo -u user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/userid/bus notify-send "S.M.A.R.T Error ($SMARTD_FAILTYPE)" "$SMARTD_MESSAGE" --icon=dialog-warning -u critical
+
+* Меняем user и userid, например.
+sudo -u snark DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send "S.M.A.R.T Error ($SMARTD_FAILTYPE)" "$SMARTD_MESSAGE" --icon=dialog-warning -u critical
+
+Делаем скрипт запускаемым.
+sudo chmod +x /usr/share/smartmontools/smartd_warning.d/smartdnotify
+
+* В срипт можно добавить что-то такое.
+echo "SMART!" | mutt -s "smartd" usernake@gmail.com
