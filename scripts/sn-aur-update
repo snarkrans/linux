@@ -1,0 +1,14 @@
+#!/bin/bash
+GREEN='\033[0;32m'
+Col_off='\033[0m'
+
+# Переход в каталог с пакетами AUR
+cd ~/builds/aur
+# Проверка каждого пакета
+for package in */; do
+  cd "$package"
+  echo -e "${GREEN}$package${Col_off}"
+  git pull | grep date || makepkg -si --noconfirm
+  cd ..
+done
+echo "Обновления завершены."
