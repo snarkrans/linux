@@ -5,10 +5,10 @@ Col_off='\033[0m'
 # Переход в каталог с пакетами AUR
 cd ~/builds/aur
 # Проверка каждого пакета
-for package in */; do
+for package in *; do
   cd "$package"
-  echo -e "${Green}$package${Col_off}"
-  git pull | grep date || makepkg -si --noconfirm
+  a=$(git pull)
+  b="Already up to date."
+  test "$a" = "$b" && echo -e "$package: ${Green}OK${Col_off}" || makepkg -si --noconfirm
   cd ..
 done
-echo -e "${Green}Обновления завершены."
