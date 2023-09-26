@@ -9,6 +9,6 @@ for package in *; do
   cd "$package"
   a=$(git pull)
   b="Already up to date."
-  test "$a" = "$b" && echo -e "$package: ${Green}OK${Col_off}" || makepkg -si --noconfirm
+  test "$a" = "$b" && echo -e "$package: ${Green}OK${Col_off}" || makepkg -sic --noconfirm
   cd ..
 done
