@@ -1,0 +1,15 @@
+#!/bin/bash
+Green='\033[0;32m'
+Col_off='\033[0m'
+
+# Переход в каталог с пакетами AUR
+cd ~/builds/aur
+# Проверка каждого пакета
+for package in *; do
+  cd "$package"
+  a=$(git pull)
+  b="Already up to date."
+  test "$a" = "$b" && echo -e "$package: ${Green}OK${Col_off}" || makepkg -sic --noconfirm
+  rm *.tar* 2> /dev/null
+  cd ..
+done
