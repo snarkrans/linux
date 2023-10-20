@@ -10,26 +10,6 @@
       ./hardware-configuration.nix
     ];
 
-  # from Alex
-  nixpkgs.config = {
-  allowUnfree = true;
-  };
-  nixpkgs.overlays = [
-  (self: super: { fcitx-engines = self.fcitx5; })
-  ];
-  nix = { extraOptions = "experimental-features = flakes"; };
-  location = {latitude = 0.0; longitude = 100.0; };
-
-  hardware = {
-  opengl = {
-  enable = true;
-  extraPackages = with pkgs; [vaapiIntel intel-media-driver vaapiVdpau libvdpau-va-gl];
-  };
-  cpu.intel.updateMicrocode = true;
-  enableAllFirmware = true;
-  enableRedistributableFirmware = true;
-  };
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
