@@ -28,7 +28,7 @@
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/5ebeb111-303b-42ae-94ad-11d7c65f0719";
       fsType = "btrfs";
-      options = [ "rw,noatime,discard=async,compress=zstd:1,ssd,space_cache=v2,autodefrag,subvol=nix" ];
+      options = [ "noatime,discard=async,compress=zstd:1,ssd,space_cache=v2,subvol=nix" ];
     };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
