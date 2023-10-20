@@ -6,8 +6,9 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      ./packages.nix
     ];
 
   # Bootloader.
@@ -55,9 +56,6 @@
     xkbVariant = "";
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -83,9 +81,7 @@
     isNormalUser = true;
     description = "denis";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    firefox
-    ];
+  # packages = with pkgs; [firefox];
   };
 
   programs.zsh.enable = true;
@@ -95,21 +91,6 @@
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "snark";
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  wget 
-  neovim 
-  neofetch 
-  syncthing
-  pass
-  pinentry-curses
-  blueman
-  pavucontrol
-  xfce.xfce4-xkb-plugin 
-  xfce.xfce4-pulseaudio-plugin
-  ];
 
   # started in user sessions.
   # programs.mtr.enable = true;
