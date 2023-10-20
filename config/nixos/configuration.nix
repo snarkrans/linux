@@ -93,11 +93,11 @@
   services.xserver.displayManager.autoLogin.user = "snark";
 
   # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+    programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+    };
 
   # List services that you want to enable:
 
@@ -122,14 +122,6 @@
   };
   };
  
-  # Gnupg agent for Pass.
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-  enable = true;
-  pinentryFlavor = "curses";
-  enableSSHSupport = true;
-  };
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
