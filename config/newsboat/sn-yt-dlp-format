@@ -1,8 +1,0 @@
-#!/bin/bash
-
-fm=$(yt-dlp "$(xclip -o)" --list-formats | fzf)
-fm2=$(echo $fm | cut -d' ' -f1)
-
-st="$(echo -e "mpv "$(xclip -o)" --ytdl-format=$fm2\nyt-dlp --output "" -i --write-auto-sub -f $fm2 "$(xclip -o)"" -o '%(title)s.%(ext)s' |fzf)"
-$st
-
