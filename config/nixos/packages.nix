@@ -12,18 +12,24 @@
   # User gui.
   syncthing
   neofetch
-  firefox 
+  firefox
+  mpv
+  telegram-desktop
+  flameshot
   # Cli.
+  pass
   neovim
   alacritty
   tmux
-  pass
   sshfs
   fzf
+  rofi
+  ripgrep
   lsd
   git
   compsize
   wget
+  axel
   htop
   ];
 }
