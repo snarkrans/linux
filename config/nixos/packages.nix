@@ -1,25 +1,29 @@
 { pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [ 
-  wget
-  neovim
-  neofetch
-  syncthing
-  pass
-  pinentry-curses
-  blueman
-  pavucontrol
+  environment.systemPackages = with pkgs; [
+  
+  # System.
   xfce.xfce4-xkb-plugin
   xfce.xfce4-pulseaudio-plugin
-  firefox
-  htop
-  fzf
+  pavucontrol
+  pinentry-curses
+  blueman
+  # User gui.
+  syncthing
+  neofetch
+  firefox 
+  # Cli.
+  neovim
   alacritty
   tmux
+  pass
+  sshfs
+  fzf
+  lsd
   git
   compsize
-  lsd
-  sshfs
+  wget
+  htop
   ];
 }
