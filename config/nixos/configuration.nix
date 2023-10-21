@@ -104,8 +104,6 @@
   configDir = "/home/snark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
   };
- 
-
 
   system.stateVersion = "23.05"; # Did you read the comment?
 }
