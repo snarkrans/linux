@@ -73,11 +73,6 @@
   extraGroups = [ "networkmanager" "wheel" ];
   # packages = with pkgs; [firefox];
   };
-  
-  # Enable zsh.
-  programs.zsh.enable = true;
-  users.users.snark.shell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ];
 
   # Started in user sessions.
   programs.gnupg.agent = {
@@ -86,8 +81,12 @@
   enableSSHSupport = true;
   };
 
+  # Enable zsh.
+  programs.zsh.enable = true;
+  users.users.snark.shell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ];
+  
   # List services that you want to enable:
-
   services.blueman.enable = true;
 
   # Enable the OpenSSH daemon.
