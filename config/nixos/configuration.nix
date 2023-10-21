@@ -53,7 +53,6 @@
   alsa.enable = true;
   alsa.support32Bit = true;
   pulse.enable = true;
-  # If you want to use JACK applications, uncomment this
   #jack.enable = true;
   #media-session.enable = true;
   };
@@ -87,13 +86,12 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
   enable = true;
-  # require public key authentication for better security
   settings.PasswordAuthentication = false;
   settings.KbdInteractiveAuthentication = false;
   #settings.PermitRootLogin = "yes";
   };
 
-  # Syncthing is a continuous file synchronization program.
+  # Syncthing. File synchronization program.
   services = {
   syncthing = {
   enable = true;
