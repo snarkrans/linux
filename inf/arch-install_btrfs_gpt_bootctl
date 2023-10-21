@@ -48,14 +48,15 @@ $ lsblk -f # смотрим все доступные диски. Я буду с
 $ cfdisk /dev/sdc # запустим утилиту для работы с дисками. Утилита очень простая и интуитивно понятная. Создаем два раздела. sdc1 - 256Mb и Type - EFI System. sdc2 - все свободное место, Type - Linux file system. Сразу после запуска cfdisk предложит выбрать таблицу разделов, выбираем gpt. Если выбор не предложен, обнуляем таблицу разделов cfdisk -z /dev/sdc
 
 # Или создаем разделы с sfdisk.
-sfdisk -l /dev/sdX
-sfdisk --delete /dev/sdX
-printf "label: gpt\n,550M,U\n,,L\n" | sfdisk /dev/sdX
+$ sfdisk -l /dev/sdX
+$ sfdisk --delete /dev/sdX
+$ printf "label: gpt\n,550M,U\n,,L\n" | sfdisk /dev/sdX
 
 - Форматируем разделы и создаем метку arch для диска с корнем.
-$ mkfs.vfat /dev/sdc1 
+$ mkfs.vfat /dev/sdc1
+$ fatlabel /dev/sdc1 boot
 * dosfstools gets you mkfs.vfat and mkfs.msdos
-mkfs.btrfs -L "arch" /dev/sdc2
+$ mkfs.btrfs -L "arch" /dev/sdc2
 
 - Монтируем новые разделы. На sdс2 будет корень, на sdс1 - загрузчик.
 $ mount /dev/sdc2 /mnt
