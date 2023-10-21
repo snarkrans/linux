@@ -92,13 +92,11 @@
   };
 
   # Syncthing. File synchronization program.
-  services = {
-  syncthing = {
+  services.syncthing = {
   enable = true;
   user = "snark";
   dataDir = "/home/snark/Documents";    # Default folder for new synced folders
   configDir = "/home/snark/.config/syncthing";   # Folder for Syncthing's settings and keys
-  };
   };
 
   system.stateVersion = "23.05"; # Did you read the comment?
