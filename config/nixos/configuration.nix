@@ -79,7 +79,7 @@
   programs.zsh.enable = true;
   users.users.snark.shell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
-  
+
   # List services that you want to enable:
   services.blueman.enable = true;
 
@@ -101,4 +101,3 @@
 
   system.stateVersion = "23.05"; # Did you read the comment?
 }
-

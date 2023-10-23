@@ -13,6 +13,13 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  # Zfs.
+  #boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  #boot.supportedFilesystems = [ "zfs" ];
+  #boot.zfs.forceImportRoot = false;
+  #networking.hostId = "eeecede6";
+  #boot.zfs.extraPools = [ "pool0" ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5ebeb111-303b-42ae-94ad-11d7c65f0719";
       fsType = "btrfs";
