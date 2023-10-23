@@ -14,11 +14,11 @@
   boot.extraModulePackages = [ ];
 
   # Zfs.
-  #boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  #boot.supportedFilesystems = [ "zfs" ];
-  #boot.zfs.forceImportRoot = false;
-  #networking.hostId = "eeecede6";
-  #boot.zfs.extraPools = [ "pool0" ];
+  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.supportedFilesystems = [ "zfs" ];
+  # boot.zfs.forceImportRoot = false;
+  # networking.hostId = "eeecede6"; # Get id: $head -c4 /dev/urandom | od -A none -t x4
+  # boot.zfs.extraPools = [ "pool_test" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5ebeb111-303b-42ae-94ad-11d7c65f0719";
