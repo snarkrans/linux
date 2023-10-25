@@ -16,6 +16,7 @@
   mpv
   telegram-desktop
   flameshot
+  krita
   # Cli.
   pass
   neovim
@@ -34,6 +35,5 @@
   duf
   usbutils
   pciutils
-  krita
   ];
 }
