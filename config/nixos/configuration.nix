@@ -7,6 +7,9 @@
   ./hardware-configuration.nix
   ./packages.nix
   ];
+  
+  # Storage optimization.
+  nix.optimise.automatic = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

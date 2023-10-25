@@ -31,5 +31,9 @@
   wget
   axel
   htop
+  duf
+  usbutils
+  pciutils
+  krita
   ];
 }

@@ -57,4 +57,18 @@
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  services.tlp = {
+  enable = true;
+  settings = {
+  CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+  CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+  # START_CHARGE_THRESH_BAT0=75;
+  # STOP_CHARGE_THRESH_BAT0=80;
+  START_CHARGE_THRESH_BAT1=75;
+  STOP_CHARGE_THRESH_BAT1=80;
+  };
+  };
+
+
 }
