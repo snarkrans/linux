@@ -20,6 +20,7 @@
   # Cli.
   pass
   neovim
+  sdcv
   alacritty
   tmux
   sshfs
@@ -35,5 +36,6 @@
   duf
   usbutils
   pciutils
+  ncmpcpp
   ];
 }

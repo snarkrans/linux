@@ -102,5 +102,24 @@
   configDir = "/home/snark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
 
+  services.mpd = {
+  enable = true;
+  user = "snark";
+  musicDirectory = "/home/snark/data/sound";
+  extraConfig = ''
+  audio_output {
+  type "pipewire"
+  name "My PipeWire Output"
+  }
+  '';
+  startWhenNeeded =
+  true; # systemd feature: only start MPD service upon connection to its socket
+  };
+  systemd.services.mpd.environment = {
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+  XDG_RUNTIME_DIR =
+  "/run/user/1000"; # User-id 1000 must match above user. MPD will look inside this directory for the PipeWire socket.
+  };
+
   system.stateVersion = "23.05"; # Did you read the comment?
 }
