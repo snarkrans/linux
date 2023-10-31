@@ -102,6 +102,7 @@
   configDir = "/home/snark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
 
+  # MPD. Music daemon.
   services.mpd = {
   enable = true;
   user = "snark";
