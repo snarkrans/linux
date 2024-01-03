@@ -3,6 +3,7 @@
 $ cfdisk -z /dev/vda # Создаем таблицу GPT и два раздела. vda1 - 256Mb и Type - EFI System. vda2 - все свободное место, Type - Solaris Root.
 
 Загружаем FZF модули ядра.
+https://github.com/eoli3n/archiso-zfs
 $ curl -s https://raw.githubusercontent.com/eoli3n/archiso-zfs/master/init | bash
 $ modprobe zfs
 
@@ -123,4 +124,9 @@ $ exit
 $ umount /mnt/boot
 $ zfs umount -a
 $ zpool export zroot
+
+*После разворачивание бекапа, нужно удалить старый zfs кеш.
+rm -rf /mnt/etc/zfs/*
+cp /etc/zfs/zpool.cache /mnt/etc/zfs/zpool.cache
+После этого можно чрутится.
 
