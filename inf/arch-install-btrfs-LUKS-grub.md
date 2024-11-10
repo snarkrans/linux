@@ -1,16 +1,5 @@
-Chromebook
-https://mrchromebox.tech/#fwscript
-
-https://docs.chrultrabook.com/docs/firmware/supported-devices.html
-
-https://github.com/WeirdTreeThing/chromebook-linux-audio?tab=readme-ov-file
-
-https://fs.nightcore.monster/chromebook/stoney/kernel/
-
 https://nerdstuff.org/posts/2020/2020-004_arch_linux_luks_btrfs_systemd-boot/
-
 https://ventureo.codeberg.page/
-
 
 cryptsetup luksFormat /dev/sda2
 cryptsetup open /dev/sda2 luks
