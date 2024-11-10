@@ -59,7 +59,7 @@ HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont bl
 mkinitcpio -P
 
 yay -S grub-improved-luks2-git efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --modules="part_gpt part_msdos
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --modules="part_gpt part_msdos"
 
 blkid -s UUID -o value /dev/sda2
 ls -l /dev/disk/by-uuid
