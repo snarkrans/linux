@@ -28,7 +28,7 @@ umount /mnt
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@ /dev/mapper/luks /mnt
 
 mkdir -p /mnt/{boot,home,var/cache/pacman/pkg,.snapshots,btrfs}
-mkdir -p /mnt/efi
+mkdir -p /mnt/boot/efi
 
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@home /dev/mapper/luks /mnt/home
 
