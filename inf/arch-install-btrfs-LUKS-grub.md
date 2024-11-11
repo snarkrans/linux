@@ -1,5 +1,6 @@
 https://nerdstuff.org/posts/2020/2020-004_arch_linux_luks_btrfs_systemd-boot/
 https://ventureo.codeberg.page/
+https://gist.github.com/WELL1NGTON/47ab9f38ace6368636bebd75c1e17f8c
 
 
 cryptsetup luksFormat /dev/sda2
@@ -17,16 +18,11 @@ umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@ /dev/mapper/luks /mnt
 
-mkdir -p /mnt/{boot,home,var/cache/pacman/pkg,.snapshots,btrfs}
-mkdir -p /mnt/boot/efi
+mkdir -p /mnt/{boot/efi,home,var/cache/pacman/pkg,.snapshots}
 
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@home /dev/mapper/luks /mnt/home
 
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@pkg /dev/mapper/luks /mnt/var/cache/pacman/pkg
-
-mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@snapshots /dev/mapper/luks /mnt/.snapshots
-
-mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvolid=5 /dev/mapper/luks /mnt/btrfs
 
 mount /dev/sda1 /mnt/boot/efi
 
@@ -76,15 +72,29 @@ sway xorg-xwayland swayidle mako wlr-randr
 ttf-dejavu ttf-droid ttf-hack
 grim slurp wl-clipboard
 
-
+vnc
 export WAYLAND_DISPLAY=wayland-0
 export WAYLAND_DISPLAY=wayland-1
 wayvnc 0.0.0.0 5902 vnc сервер
 wlvncc 192.168.206.16 5902 клиент
 
 # Бекап
+
 $ rsync -avhe ssh --delete --progress --exclude='.Trash-*' backup_mini.2023-06-27.tar.zst root@192.168.43.16:/mnt
 $ zstdcat *.tar.zst | tar -xvp -C /mnt
 $ sudo ip addr add 10.0.0.2/16 dev enp0s25
 
+# Откат из снапшота.
+
+Примонтировать корневой диск.
+mount /dev/nvme0n1p3 /mnt
+Посмотреть список сабвольюмов.
+btrfs subvolume list /mnt
+Переименовать, или удалить текушие сабвольюмы.
+mv /mnt/@ /mnt/@old
+mv /mnt/@home /mnt/@home-old
+Сделать новые сбвольюмы из снапшотов.
+sudo btrfs subvolume snapshot /mnt/@home-old/.snapshots/home.2023-06-25_19:44:29 /mnt/@home
+sudo btrfs subvolume snapshot /mnt/@old/.snapshots/root.2023-06-25_19:44:29 /mnt/@
+При необходимости, отредактировать fstab и конфиг загрузчика.
 
