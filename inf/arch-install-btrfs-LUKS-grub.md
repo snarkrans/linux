@@ -98,3 +98,22 @@ sudo btrfs subvolume snapshot /mnt/@home-old/.snapshots/home.2023-06-25_19:44:29
 sudo btrfs subvolume snapshot /mnt/@old/.snapshots/root.2023-06-25_19:44:29 /mnt/@
 При необходимости, отредактировать fstab и конфиг загрузчика.
 
+
+# /etc/grub.d/40_custom
+
+menuentry 'Archlinux.iso' {
+        savedefault
+        load_video
+        set gfxpayload=keep
+        insmod gzio
+        insmod part_gpt
+        insmod ext2
+        insmod loopback
+        root_uuid=8CF0-971F
+        search -s root -u $root_uuid
+        set imgdevpath='/dev/disk/by-uuid/8CF0-971F'
+        set isofile='/archlinux.iso'
+        loopback loop $isofile
+        linux (loop)/arch/boot/x86_64/vmlinuz-linux img_dev=$imgdevpath img_loop=$isofile earlymodules=loop
+        initrd (loop)/arch/boot/x86_64/initramfs-linux.img
+}
