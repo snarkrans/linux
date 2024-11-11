@@ -13,7 +13,6 @@ mount /dev/mapper/luks /mnt
 btrfs sub create /mnt/@
 btrfs sub create /mnt/@home
 btrfs sub create /mnt/@pkg
-btrfs sub create /mnt/@snapshots
 umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@ /dev/mapper/luks /mnt
