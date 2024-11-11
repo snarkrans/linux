@@ -83,7 +83,7 @@ $ rsync -avhe ssh --delete --progress --exclude='.Trash-*' backup_mini.2023-06-2
 $ zstdcat *.tar.zst | tar -xvp -C /mnt
 $ sudo ip addr add 10.0.0.2/16 dev enp0s25
 
-# Откат из снапшота.
+# Откат из снапшота
 
 Примонтировать корневой диск.
 mount /dev/nvme0n1p3 /mnt
