@@ -1,3 +1,4 @@
+arch-btrfs-LUKS-grub
 
 cryptsetup luksFormat /dev/sda2
 cryptsetup open /dev/sda2 luks
@@ -66,6 +67,17 @@ sway xorg-xwayland swayidle mako wlr-randr
 ttf-dejavu ttf-droid ttf-hack
 grim slurp wl-clipboard
 
+```
+cat .config/zsh/.zlogin
+# Xorg
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+# Wayland
+if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+WLR_RENDERER=vulkan
+exec sway --unsupported-gpu
+fi
+
+```
 vnc
 export WAYLAND_DISPLAY=wayland-0
 export WAYLAND_DISPLAY=wayland-1
