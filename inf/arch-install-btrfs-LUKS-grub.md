@@ -13,16 +13,15 @@ mount /dev/mapper/luks /mnt
 btrfs sub create /mnt/@
 btrfs sub create /mnt/@home
 btrfs sub create /mnt/@pkg
+btrfs sub create /mnt/@log
 umount /mnt
 
-mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@ /dev/mapper/luks /mnt
-
+mount -o compress=zstd,subvol=@ /dev/mapper/luks /mnt
 mkdir -p /mnt/{boot/efi,home,var/cache/pacman/pkg,.snapshots}
 
-mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@home /dev/mapper/luks /mnt/home
-
-mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@pkg /dev/mapper/luks /mnt/var/cache/pacman/pkg
-
+mount -o compress=zstd,subvol=@home /dev/mapper/luks /mnt/home
+mount -o compress=zstd,subvol=@pkg /dev/mapper/luks /mnt/var/cache/pacman/pkg
+mount -o compress=zstd,subvol=@log /dev/mapper/luks /mnt/var/log
 mount /dev/sda1 /mnt/boot/efi
 
 pacstrap /mnt linux linux-firmware base btrfs-progs amd-ucode neovim iwd alacritty ttf-dejavu ttf-droid ttf-hack
@@ -36,7 +35,7 @@ echo "KEYMAP=us" > /etc/vconsole.conf
 echo "300e" > /etc/hostname
 
 passwd
-useradd -m -G wheel snark
+useradd -m -G wheel,users snark
 passwd snark
 
 nvim /etc/mkinitcpio.conf
@@ -83,7 +82,9 @@ $ rsync -avhe ssh --delete --progress --exclude='.Trash-*' backup_mini.2023-06-2
 $ zstdcat *.tar.zst | tar -xvp -C /mnt
 $ sudo ip addr add 10.0.0.2/16 dev enp0s25
 
-# Откат из снапшота
+# Откат из снапшота вручную
+
+/.snapshots не нужно монтировать на отдельный сабвол.
 
 Примонтировать корневой диск.
 mount /dev/nvme0n1p3 /mnt
@@ -96,6 +97,21 @@ mv /mnt/@home /mnt/@home-old
 sudo btrfs subvolume snapshot /mnt/@home-old/.snapshots/home.2023-06-25_19:44:29 /mnt/@home
 sudo btrfs subvolume snapshot /mnt/@old/.snapshots/root.2023-06-25_19:44:29 /mnt/@
 При необходимости, отредактировать fstab и конфиг загрузчика.
+
+# Откат из снапшота grub-btrfs
+
+/.snapshots нужно смонтировать в level 5 path @snapshots
+
+Чтобы без ошибок грузиться в снапшет через grub-btrfs, нужно держать /var/log на отдельном сабволе или очистить директорию /var/log перед загрузкой в снапшет и снапшет должен быть доступен для записи(ro=false). Загрузка в рид онли (ro=true) требует дополнительных манипуляция. 
+
+mount subvolid 5 in some directory
+$mount -t btrfs -o subvolid=5 /dev/mapper/system /mnt
+go to the mounted directory
+$cd /mnt
+rename @root to @root.bak
+$mv @root @root.bak
+rename @snapshots/@root-snapshot-2021-09-01-00-00 to @root
+$mv @snapshots/@root-snapshot-2021-09-01-00-00 @root
 
 
 # /etc/grub.d/40_custom
