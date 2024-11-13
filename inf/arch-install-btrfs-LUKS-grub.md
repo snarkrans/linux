@@ -1,7 +1,3 @@
-https://nerdstuff.org/posts/2020/2020-004_arch_linux_luks_btrfs_systemd-boot/
-https://ventureo.codeberg.page/
-https://gist.github.com/WELL1NGTON/47ab9f38ace6368636bebd75c1e17f8c
-
 
 cryptsetup luksFormat /dev/sda2
 cryptsetup open /dev/sda2 luks
@@ -82,9 +78,9 @@ $ rsync -avhe ssh --delete --progress --exclude='.Trash-*' backup_mini.2023-06-2
 $ zstdcat *.tar.zst | tar -xvp -C /mnt
 $ sudo ip addr add 10.0.0.2/16 dev enp0s25
 
-# Откат из снапшота вручную
+# Откат из снапшота
 
-/.snapshots не нужно монтировать на отдельный сабвол.
+/.snapshots
 
 Примонтировать корневой диск.
 mount /dev/nvme0n1p3 /mnt
@@ -98,9 +94,9 @@ sudo btrfs subvolume snapshot /mnt/@home-old/.snapshots/home.2023-06-25_19:44:29
 sudo btrfs subvolume snapshot /mnt/@old/.snapshots/root.2023-06-25_19:44:29 /mnt/@
 При необходимости, отредактировать fstab и конфиг загрузчика.
 
-# Откат из снапшота grub-btrfs
+# Откат из снапшота
 
-/.snapshots нужно смонтировать в level 5 path @snapshots
+/.snapshots смонтирован в level 5 path @snapshots
 
 Чтобы без ошибок грузиться в снапшет через grub-btrfs, нужно держать /var/log на отдельном сабволе или очистить директорию /var/log перед загрузкой в снапшет и снапшет должен быть доступен для записи(ro=false). Загрузка в рид онли (ro=true) требует дополнительных манипуляция. 
 
@@ -114,8 +110,9 @@ rename @snapshots/@root-snapshot-2021-09-01-00-00 to @root
 $mv @snapshots/@root-snapshot-2021-09-01-00-00 @root
 
 
-# /etc/grub.d/40_custom
+# Загрузка в iso
 
+/etc/grub.d/40_custom
 menuentry 'Archlinux.iso' {
         savedefault
         load_video
@@ -132,3 +129,9 @@ menuentry 'Archlinux.iso' {
         linux (loop)/arch/boot/x86_64/vmlinuz-linux img_dev=$imgdevpath img_loop=$isofile earlymodules=loop
         initrd (loop)/arch/boot/x86_64/initramfs-linux.img
 }
+
+# Ссылки
+
+https://nerdstuff.org/posts/2020/2020-004_arch_linux_luks_btrfs_systemd-boot/
+https://ventureo.codeberg.page/
+https://gist.github.com/WELL1NGTON/47ab9f38ace6368636bebd75c1e17f8c
