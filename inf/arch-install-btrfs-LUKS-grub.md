@@ -14,12 +14,12 @@ btrfs sub create /mnt/@log
 umount /mnt
 
 mount -o compress=zstd,subvol=@ /dev/mapper/luks /mnt
-mkdir -p /mnt/{boot/efi,home,var/cache/pacman/pkg,.snapshots}
+mkdir -p /mnt/{efi,home,var/cache/pacman/pkg,.snapshots}
 
 mount -o compress=zstd,subvol=@home /dev/mapper/luks /mnt/home
 mount -o compress=zstd,subvol=@pkg /dev/mapper/luks /mnt/var/cache/pacman/pkg
 mount -o compress=zstd,subvol=@log /dev/mapper/luks /mnt/var/log
-mount /dev/sda1 /mnt/boot/efi
+mount /dev/sda1 /mnt/efi
 
 pacstrap /mnt linux linux-firmware base btrfs-progs amd-ucode neovim iwd alacritty ttf-dejavu ttf-droid ttf-hack
 
@@ -41,7 +41,7 @@ HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont bl
 mkinitcpio -P
 
 yay -S grub-improved-luks2-git efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --modules="part_gpt part_msdos"
+grub-install --target=x86_64-efi --efi-directory=/efi  --boot-directory=/boot --bootloader-id=GRUB --modules="part_gpt part_msdos"
 
 blkid -s UUID -o value /dev/sda2
 ls -l /dev/disk/by-uuid
