@@ -1,0 +1,86 @@
+#!/bin/bash
+
+history="$HOME/data/soft/stardict-dicts"
+
+read -p "Клавиатура (lat/ru): " lang
+
+en(){
+echo English
+read var
+if [ "$lang" = "lat" ] ; then
+trans -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief en:ru "$var")" >> $history/en.txt # - история
+sdcv -ucn "LingvoUniversal (En-Ru)" --utf8-output --color "$var" | less -RK
+else
+trans en:en -speak $(trans -brief :en "$var") > /dev/null 2>&1
+printf "%s\t%s\n" "$var" "$(trans -brief ru:en "$var")" >> $history/en.txt # - история
+sdcv -ucn "LingvoUniversal (Ru-En)" --utf8-output --color "$var" | less -RK
+fi
+clear
+en
+}
+
+it(){
+echo Italiano
+read var
+if [ "$lang" = "lat" ] ; then
+trans it:it -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief it:ru "$var")" >> $history/it.txt # - история
+sdcv -ucn "Universal (It-Ru)" --utf8-output --color "$var" | less -RK 
+else
+trans it:it -speak $(trans -brief :it "$var") > /dev/null 2>&1
+printf "%s\t%s\n" "$var" "$(trans -brief ru:it "$var")" >> $history/it.txt # - история
+sdcv -ucn "Universal (Ru-It)" --utf8-output --color "$var" | less -RK
+fi
+clear
+it
+}
+
+de(){
+echo Deutsch
+read var
+if [ "$lang" = "lat" ] ; then
+trans de:de -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief de:ru "$var")" >> $history/de.txt # - история
+sdcv -ucn "Universal (De-Ru)" --utf8-output --color "$var" | less -RK 
+else
+trans de:de -speak $(trans -brief :de "$var") > /dev/null 2>&1
+printf "%s\t%s\n" "$var" "$(trans -brief ru:de "$var")" >> $history/en.txt # - история
+sdcv -ucn "Universal (Ru-De)" --utf8-output --color "$var" | less -RK
+fi
+clear
+de
+}
+
+uk(){
+echo Ukrain
+read var
+lang=$(xset -q|grep LED| awk '{ print $10 }')
+if [ "$lang" = 00001000 ] ; then
+trans uk:uk -speak $var  > /dev/null 2>&1 # - озчучка trans, онлайн
+printf "%s\t%s\n" "$var" "$(trans -brief uk:ru "$var")" >> $history/de.txt # - история
+sdcv -ucn "slovnyk_uk-ru" --utf8-output --color "$var" | less -RK 
+else
+trans uk:uk -speak $(trans -brief :uk "$var") > /dev/null 2>&1
+printf "%s\t%s\n" "$var" "$(trans -brief ru:uk "$var")" >> $history/en.txt # - история
+sdcv -ucn "slovnyk_ru_uk" --utf8-output --color "$var" | less -RK
+fi
+clear
+uk
+}
+
+all(){
+    echo All
+    dict=$(sdcv -l | fzf | cut -d" " -f1,2)
+    alll(){
+	echo $dict
+	read var
+	sdcv -ucn "$dict" --utf8-output --color "$var" | less -RK
+	clear
+	alll
+}
+    alll
+}
+
+language="$(echo -e "en\nit\nde\nall" | fzf)"
+$language

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# def-tui — переводчик на sdcv + trans + gum
+
+history="$HOME/data/soft/stardict-dicts"
+mkdir -p "$history"
+
+for cmd in sdcv trans gum fzf; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "Ошибка: утилита '$cmd' не найдена."; exit 1;
+  }
+done
+
+# 🔹 Единое меню выбора направления перевода
+choice=$(gum choose \
+  "en→ru — English → Русский" \
+  "ru→en — Русский → English" \
+  "it→ru — Italiano → Русский" \
+  "ru→it — Русский → Italiano" \
+  "de→ru — Deutsch → Русский" \
+  "ru→de — Русский → Deutsch" \
+  "uk→ru — Українська → Русский" \
+  "ru→uk — Русский → Українська" \
+  "all — Все словари" \
+  "exit — Выход" \
+  --header "Выбери направление перевода:")
+
+dir=$(echo "$choice" | awk '{print $1}')  # например, en→ru
+src=${dir%%→*}   # язык источника
+dst=${dir##*→}   # язык перевода
+
+# Универсальная функция
+translate_lang() {
+  local src="$1" dst="$2" dict="$3" history_file="$4"
+  gum style --border double --bold --foreground 212 "=== $src → $dst ==="
+
+  while true; do
+    var=$(gum input --placeholder "Введите слово (q — выход)")
+    [[ -z "$var" || "$var" == "q" ]] && break
+
+    trans "$src:$dst" -speak "$var" >/dev/null 2>&1
+    printf "%s\t%s\n" "$var" "$(trans -brief "$src:$dst" "$var")" >> "$history_file"
+    sdcv -ucn "$dict" --utf8-output --color "$var" | less -RX
+    clear
+  done
+}
+
+# Обработка выбора
+case "$dir" in
+  en→ru) translate_lang en ru "LingvoUniversal (En-Ru)" "$history/en.txt" ;;
+  ru→en) translate_lang ru en "LingvoUniversal (Ru-En)" "$history/en.txt" ;;
+  it→ru) translate_lang it ru "Universal (It-Ru)" "$history/it.txt" ;;
+  ru→it) translate_lang ru it "Universal (Ru-It)" "$history/it.txt" ;;
+  de→ru) translate_lang de ru "Universal (De-Ru)" "$history/de.txt" ;;
+  ru→de) translate_lang ru de "Universal (Ru-De)" "$history/de.txt" ;;
+  uk→ru) translate_lang uk ru "slovnyk_uk-ru" "$history/uk.txt" ;;
+  ru→uk) translate_lang ru uk "slovnyk_ru_uk" "$history/uk.txt" ;;
+  all)
+    dict=$(sdcv -l | fzf | cut -d" " -f1,2)
+    while true; do
+      var=$(gum input --placeholder "Введите слово (q — выход)")
+      [[ -z "$var" || "$var" == "q" ]] && break
+      sdcv -ucn "$dict" --utf8-output --color "$var" | less -RX
+      clear
+    done
+    ;;
+  exit) gum style --foreground 245 "Выход 👋"; exit 0 ;;
+esac

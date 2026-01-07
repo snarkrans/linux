@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# def-tui — переводчик на sdcv + trans + gum (все словари)
+
+history="$HOME/data/soft/stardict-dicts"
+mkdir -p "$history"
+
+# Проверка зависимостей
+for cmd in sdcv trans gum; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "Ошибка: утилита '$cmd' не найдена."; exit 1;
+  }
+done
+
+# 🔹 Меню выбора направления перевода
+choice=$(gum choose \
+  "en→ru — English → Русский" \
+  "ru→en — Русский → English" \
+  "it→ru — Italiano → Русский" \
+  "ru→it — Русский → Italiano" \
+  "de→ru — Deutsch → Русский" \
+  "ru→de — Русский → Deutsch" \
+  "uk→ru — Українська → Русский" \
+  "ru→uk — Русский → Українська" \
+  "exit — Выход" \
+  --header "Выбери направление перевода:")
+
+dir=$(echo "$choice" | awk '{print $1}')  # например, en→ru
+src=${dir%%→*}   # язык источника
+dst=${dir##*→}   # язык перевода
+
+# 🔹 Универсальная функция перевода (все словари)
+translate_lang() {
+  local src="$1" dst="$2" hist_file="$3"
+  gum style --border double --bold --foreground 212 "=== $src → $dst ==="
+
+  while true; do
+    var=$(gum input --placeholder "Введите слово (q — выход)")
+    [[ -z "$var" || "$var" == "q" ]] && break
+
+    # Онлайн перевод (короткий) и озвучка
+    trans "$src:$dst" -speak "$var" >/dev/null 2>&1
+    local short_trans
+    short_trans=$(trans -brief "$src:$dst" "$var")
+    printf "%s\t%s\n" "$var" "$short_trans" >> "$hist_file"
+
+    # Локальные словари (все установленные)
+    sdcv -n --utf8-output --color "$var" | less -RX
+
+    clear
+  done
+}
+
+# 🔹 Основное управление
+case "$dir" in
+  en→ru) translate_lang en ru "$history/en.txt" ;;
+  ru→en) translate_lang ru en "$history/en.txt" ;;
+  it→ru) translate_lang it ru "$history/it.txt" ;;
+  ru→it) translate_lang ru it "$history/it.txt" ;;
+  de→ru) translate_lang de ru "$history/de.txt" ;;
+  ru→de) translate_lang ru de "$history/de.txt" ;;
+  uk→ru) translate_lang uk ru "$history/uk.txt" ;;
+  ru→uk) translate_lang ru uk "$history/uk.txt" ;;
+  exit) gum style --foreground 245 "Выход 👋"; exit 0 ;;
+esac
+
