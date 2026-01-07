@@ -1,0 +1,17 @@
+lost+found
+.Trash-*
+.snapshots
+.zfs
+tmp
+soft/qemu
+soft/unreal-engine-bin
+soft/nextcloud
+yula
+tutorials
+youtube
+3d_archive
+python
+video
+backup/zstd
+3d_lib/vendors/textures/megascan
+nosync

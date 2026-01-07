@@ -1,0 +1,65 @@
+#!/bin/bash
+#dependency: fzf, wget, axel.
+
+path_alpha=~/data/soft/blender/alpha
+path_vanilla=~/data/soft/blender/vanilla
+download_ap=wget # axel, wget.
+
+# dependency check.
+fzf --version > /dev/null 2>&1 || echo "missing dependency: fzf - command-line fuzzy finder."
+
+alpha_update(){
+ls -l $path_alpha/ > /dev/null 2>&1 || mkdir -p $path_alpha/
+rm -r $path_alpha/* > /dev/null 2>&1
+cd $path_alpha/
+tar_name=$(curl https://cdn.builder.blender.org/download/daily/ | \
+grep -o -G 'blender-[^a-z]*-alpha+main.[0-9a-z]*-linux.x86_64-release.tar.xz' | awk 'NR==1')
+$download_ap https://builder.blender.org/download/daily/$tar_name
+# sha256sum check.
+$download_ap https://builder.blender.org/download/daily/$tar_name.sha256
+echo $(cat $tar_name.sha256) $tar_name > $tar_name.sha256
+sha256sum -c $tar_name.sha256 || echo "sha256sum corrupt!" > log_sha
+# blender extract.
+tar -xf $path_alpha/*.tar.xz -C $path_alpha
+mv $path_alpha/*/ $path_alpha/blender
+# icon.
+bl_path="$(find $path_alpha/blender/* -maxdepth 1 -name 'blender' | head -1)"
+echo $bl_path
+sed -i '/Exec/d' "$bl_path.desktop"
+sed -i '/Icon/d' "$bl_path.desktop"
+sed -i '/Name/d' "$bl_path.desktop"
+echo "Exec=$bl_path" %f >> $bl_path.desktop
+echo "Icon=$bl_path.svg" >> $bl_path.desktop
+echo "Name=blender_alpha.sn" >> $bl_path.desktop
+cp "$bl_path.desktop" ~/.local/share/applications/blender_alpha.desktop
+}
+
+vanilla_update(){
+ls -l $path_vanilla/ > /dev/null 2>&1 || mkdir -p $path_vanilla/
+rm -r $path_vanilla/* > /dev/null 2>&1
+cd $path_vanilla/
+#blender_ver=Blender4.4 # blender version.
+blender_ver=$(curl https://ftp.halifax.rwth-aachen.de/blender/release/ | grep -o -G 'Blender[0-9].[0-9]' | tail -1)
+tar_name=$(curl https://ftp.halifax.rwth-aachen.de/blender/release/$blender_ver/ | grep -o -G 'blender-[0-9].[0-9].[0-9]-linux-x64.tar.xz' | tail -1)
+$download_ap https://ftp.halifax.rwth-aachen.de/blender/release/$blender_ver/$tar_name
+# sha256sum check.
+sha_name=$(curl https://ftp.halifax.rwth-aachen.de/blender/release/$blender_ver/ | grep -o -G 'blender-[0-9].[0-9].[0-9].sha256' | tail -1)
+$download_ap https://ftp.halifax.rwth-aachen.de/blender/release/$blender_ver/$sha_name
+sha256sum -c *.sha256 | grep OK || echo "sha256sum corrupt!" > log_sha
+# blender extract.
+tar -xf $path_vanilla/*.tar.xz -C $path_vanilla
+mv $path_vanilla/*/ $path_vanilla/blender
+# icon.
+bl_path="$(find $path_vanilla/blender/* -maxdepth 1 -name 'blender' | head -1)"
+echo $bl_path
+sed -i '/Exec/d' "$bl_path.desktop"
+sed -i '/Icon/d' "$bl_path.desktop"
+sed -i '/Name/d' "$bl_path.desktop"
+echo "Exec=$bl_path" %f >> $bl_path.desktop
+echo "Icon=$bl_path.svg" >> $bl_path.desktop
+echo "Name=blender_vanilla.sn" >> $bl_path.desktop
+cp "$bl_path.desktop" ~/.local/share/applications/blender_vanilla.desktop
+}
+
+run="$(echo -e "alpha_update\nvanilla_update" | fzf )"
+$run
