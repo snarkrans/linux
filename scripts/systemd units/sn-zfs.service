@@ -1,9 +1,0 @@
-[Unit]
-Description=Run ZFS Snapshots script
-
-[Service]
-Type=oneshot
-ExecStart=/home/snark/snl/sc/sn-zfs-snapshots.sh
-
-[Install]
-WantedBy=multi-user.target
