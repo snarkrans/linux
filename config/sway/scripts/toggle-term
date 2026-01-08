@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if swaymsg -t get_tree | grep -q '"app_id": *"scratchpad"'; then
+  swaymsg "scratchpad show"
+else
+	# alacritty --config-file ~/.config/alacritty.scratchpad.toml -e tmux new-session -As popup \; set status off
+	alacritty -e tmux new-session -As popup \; set status off
+fi

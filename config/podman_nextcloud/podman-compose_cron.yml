@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  db:
+    image: docker.io/library/mariadb:11
+    container_name: nextcloud_db
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - nextcloud
+
+  app:
+    image: docker.io/library/nextcloud:latest
+    container_name: nextcloud_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${NEXTCLOUD_TRUSTED_DOMAINS}
+    volumes:
+      - ./nextcloud_data:/var/www/html
+      - ${HOME}/data/soft/nextcloud_data:/nextcloud_data
+      - ${HOME}/usb/nextcloud_usb:/nextcloud_usb
+    ports:
+      - "8090:80"
+    networks:
+      - nextcloud
+
+  cron:
+    image: docker.io/library/nextcloud:latest
+    container_name: nextcloud_cron
+    restart: unless-stopped
+    depends_on:
+      - app
+    volumes:
+      - ./nextcloud_data:/var/www/html
+    entrypoint: /cron.sh
+    networks:
+      - nextcloud
+
+networks:
+  nextcloud:
+    driver: bridge

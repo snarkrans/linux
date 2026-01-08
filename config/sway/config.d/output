@@ -1,0 +1,20 @@
+# Output configuration
+
+output eDP-1 resolution 1920x1200 scale 1
+output eDP-2 resolution 1920x1200 scale 1
+output DP-1 resolution 1920x1080 scale 1
+#wlr-randr --output DP-1 --mode 1920x1080
+
+exec wlr-randr | grep IPS224 && wlr-randr --output eDP-2 --off
+exec wlr-randr | grep IPS224 && wlr-randr --output eDP-1 --off
+
+### Idle configuration
+# 
+exec swayidle -w \
+          timeout 300 'swaylock -f -c 000000' \
+          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.

@@ -1,0 +1,23 @@
+alias pacdiff='sudo -E DIFFPROG="nvim -d" pacdiff'
+alias sn-date='date +"%d-%m-%Y"'
+alias grep="grep --color=auto"
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias sn-edit-newsboat='gedit ~/.newsboat/urls'
+alias v='cd ~/sn; nvim; cd ~'
+alias vv='nvim -c "vsp | vsp | wincmd h | vertical resize 60 | wincmd l | vertical resize 60 | wincmd l | vertical resize 60 | wincmd h"'
+alias manr="man --locale=ru"
+alias bl="bat -p -l log"
+alias ip='ip -color=auto'
+alias yt='ytfzf -ft -T mpv --sort-by=upload_date'
+alias inxi='inxi -c 7'
+
+# bat
+alias bathelp='bat --plain --language=help --theme=ansi'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+
+man() {
+    command man "$1" | bat -l man -p
+}

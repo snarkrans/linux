@@ -1,0 +1,41 @@
+# Set hotkeys
+
+set $mod Mod4
+
+bindsym --to-code $mod+t exec alacritty
+
+# Move your focus around
+bindsym --to-code $mod+Escape workspace back_and_forth
+bindsym --to-code Alt+Tab focus right
+bindsym --to-code $mod+Tab focus left
+
+# logiops, /etc/logid.cfg
+bindsym --to-code $mod+p workspace prev
+bindsym --to-code $mod+n workspace next
+
+# Notification daemon dunst
+bindsym --to-code $mod+m exec 'for i in {1..7}; do dunstctl history-pop ; done'
+bindsym --to-code $mod+Shift+m exec 'dunstctl close-all'
+
+# Notification daemon mako
+# bindsym --to-code $mod+m exec 'for i in {1..10}; do makoctl restore ; done'
+# bindsym --to-code $mod+Shift+m exec 'makoctl dismiss --all'
+
+# Rofi
+bindsym --to-code $mod+Return exec "rofi -combi-modi window,drun -theme Monokai_sn -show combi -show-icons"
+bindsym --to-code $mod+d exec rofi -theme Monokai_sn -show window
+
+# Screenshot
+bindsym --to-code $mod+shift+p exec flameshot gui --raw | wl-copy
+bindsym --to-code $mod+shift+i exec flameshot gui --delay 1200
+bindsym --to-code $mod+shift+f exec flameshot full
+
+# Other
+bindsym --to-code $mod+shift+y exec wlr-randr --output eDP-2 --toggle
+bindsym --to-code $mod+shift+t exec swaymsg input type:touchpad events toggle enabled disabled
+# bindsym --to-code $mod+space exec notify-send -t 1200 $(swaymsg -t get_inputs | jq 'map(select(has("xkb_active_layout_name")))[0].xkb_active_layout_name')
+bindsym --to-code $mod+shift+r exec ~/snl/sn-rofi-scripts
+#bindsym --to-code $mod+shift+b exec ~/snl/rofi/sn-wall
+
+# toggle-term
+bindsym --to-code $mod+shift+s exec ~/.config/sway/scripts/toggle-term

@@ -1,0 +1,19 @@
+bindsym --release Super_L mode oneshot
+
+mode "oneshot" {
+    bindsym --release Super_L mode default
+    bindsym Escape mode default
+
+	# Switch to workspace
+    bindsym --to-code 1 workspace number 1; mode default
+    bindsym --to-code 2 workspace number 2; mode default
+    bindsym --to-code 3 workspace number 3; mode default
+    bindsym --to-code 4 workspace number 4; mode default
+    bindsym --to-code 5 workspace number 5; mode default
+    bindsym --to-code 6 workspace number 6; mode default
+    bindsym --to-code 7 workspace number 7; mode default
+    bindsym --to-code 8 workspace number 8; mode default
+    bindsym --to-code 9 workspace number 9; mode default
+    bindsym --to-code 0 workspace number 10; mode default
+
+}

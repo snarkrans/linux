@@ -1,0 +1,18 @@
+
+services:
+  plex:
+    image: docker.io/linuxserver/plex:latest
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=Europe/Rome
+      - PUID=1000        # UID пользователя (замени на свой)
+      - PGID=1000        # GID пользователя (замени на свой)
+      - VERSION=docker
+    volumes:
+      - ./config:/config
+      - ${HOME}/downloads/torrent/movies:/data/movies
+      - ${HOME}/downloads/torrent/tv:/data/tv
+      - ${HOME}/usb:/data/tv2
+      - ./transcode:/transcode

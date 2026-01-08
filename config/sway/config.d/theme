@@ -1,0 +1,41 @@
+# https://thomashunter.name/i3-configurator/
+# class                 border  bground text    indicator child_border
+client.focused          #4C7899 #285577 #FFFFFF #292D2E   #222222
+client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+client.background       #FFFFFF
+
+# gaps inner 8
+
+default_border none
+
+seat * xcursor_theme default 32
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+gsettings set $gnome-schema icon-theme 'elementary'
+}
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output "*" bg /home/snark/data/photo/wallpaper/512411ldsdl.jpg fill
+output "*" bg /home/snark/data/photo/wallpaper/Utro_v_sosnovom_lesu.jpg fill
+
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+    font pango:DejaVu Sans Mono 11
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    # status_command while ~/.config/sway/kb_indicator.sh; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #323232 #323232 #5c5c5c
+    }
+}
