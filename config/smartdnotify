@@ -1,0 +1,15 @@
+#!/bin/sh
+
+for users in $(loginctl list-users --json short | jq -r '.[].user') ; do
+	systemd-run --machine="$users"@.host --user notify-send "S.M.A.R.T Error ($SMARTD_FAILTYPE)" "$SMARTD_MESSAGE" --icon=dialog-warning -u critical
+done
+
+# --- Отправка письма администратору через mutt
+# Настройте email администратора
+#ADMIN_EMAIL="snarkrans@yahoo.com"
+ADMIN_EMAIL="snarkrans@gmail.com"
+SUBJECT="S.M.A.R.T Error on 16p ($SMARTD_FAILTYPE)"
+BODY="$SMARTD_MESSAGE"
+
+# Отправка письма
+echo "$BODY" | mutt -s "$SUBJECT" "$ADMIN_EMAIL"
