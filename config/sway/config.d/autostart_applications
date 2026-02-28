@@ -3,9 +3,12 @@
 #for_window [workspace="1"] layout tabbed
 #for_window [workspace="2"] layout tabbed
 exec swaymsg "workspace 1; exec prime-run firefox;"
+#exec swaymsg "workspace 7; exec firefox --new-window https://translate.google.com;"
 exec swaymsg "workspace 2; exec alacritty;"
-exec swaymsg "workspace 9; exec alacritty -e ranger;"
+exec swaymsg "workspace 9; exec alacritty;"
+#exec swaymsg "workspace 9; exec alacritty -e yazi;"
 exec swaymsg "workspace 10; exec Telegram;"
+
 # exec swaymsg "exec alacritty --title "scratchterm"; for_window [title="scratchterm"] move scratchpad;"
 
 # Notification daemon
@@ -21,6 +24,6 @@ exec /usr/lib/xdg-desktop-portal -r
 # exec brightnessctl --device='platform::kbd_backlight' set 0
 
 # flamenco
-exec bash -c 'cd /home/snark/data/soft/flamenco_beta && ./flamenco-manager'
-exec bash -c 'cd /home/snark/data/soft/flamenco_beta && ./flamenco-worker -manager http://100.90.50.50:8080/'
+#exec bash -c 'cd /home/snark/data/soft/flamenco_beta && ./flamenco-manager'
+#exec bash -c 'cd /home/snark/data/soft/flamenco_beta && ./flamenco-worker -manager http://100.90.50.50:8080/'
 #exec bash -c 'cd /home/snark/data/soft/nextcloud && podman-compose up -d'

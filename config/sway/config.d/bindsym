@@ -26,9 +26,9 @@ bindsym --to-code $mod+Return exec "rofi -combi-modi window,drun -theme Monokai_
 bindsym --to-code $mod+d exec rofi -theme Monokai_sn -show window
 
 # Screenshot
-bindsym --to-code $mod+shift+p exec flameshot gui --raw | wl-copy
-bindsym --to-code $mod+shift+i exec flameshot gui --delay 1200
-bindsym --to-code $mod+shift+f exec flameshot full
+#bindsym --to-code $mod+shift+p exec flameshot gui --raw | wl-copy
+#bindsym --to-code $mod+shift+i exec flameshot gui --delay 1200
+#bindsym --to-code $mod+shift+i exec flameshot gui --path ~/data/photo/shots
 
 # Other
 bindsym --to-code $mod+shift+y exec wlr-randr --output eDP-2 --toggle
@@ -39,3 +39,18 @@ bindsym --to-code $mod+shift+r exec ~/snl/sn-rofi-scripts
 
 # toggle-term
 bindsym --to-code $mod+shift+s exec ~/.config/sway/scripts/toggle-term
+
+# screenshots
+# inspiration: https://www.reddit.com/r/swaywm/comments/ghnlea/comment/fqnzxkx/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+set $satty satty -f - --initial-tool=arrow --copy-command=wl-copy --actions-on-escape="save-to-clipboard,exit" --brush-smooth-history-size=5 --disable-notifications
+set $printscreen_mode 'printscreen (r:region, d:delay, f:full, w:window)'
+mode $printscreen_mode {
+    bindsym --to-code r exec swaymsg 'mode "default"' && grim -t ppm -g "$(slurp -d)" - | $satty
+    bindsym --to-code d exec swaymsg 'mode "default"' && sleep 3 && grim -t ppm -g "$(slurp -d)" - | $satty
+    bindsym --to-code f exec swaymsg 'mode "default"' && grim -t ppm - | $satty
+    bindsym --to-code w exec swaymsg 'mode "default"' && swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -t ppm -g - - | $satty
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+p mode $printscreen_mode

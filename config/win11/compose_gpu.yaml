@@ -10,9 +10,9 @@ services:
       # https://github.com/dockur/windows?tab=readme-ov-file#how-do-i-select-the-windows-version
       # https://github.com/dockur/windows?tab=readme-ov-file#how-do-i-install-a-custom-image
       VERSION: "10"
-      RAM_SIZE: "16G" # RAM allocated to the Windows VM.
-      CPU_CORES: "8" # CPU cores allocated to the Windows VM.
-      DISK_SIZE: "32G" # Size of the primary hard disk.
+      RAM_SIZE: "32G" # RAM allocated to the Windows VM.
+      CPU_CORES: "12" # CPU cores allocated to the Windows VM.
+      DISK_SIZE: "48G" # Size of the primary hard disk.
       # DISK2_SIZE: "32G" # Uncomment to add an additional hard disk to the Windows VM. Ensure it is mounted as a volume below.
       USERNAME: "MyWindowsUser" # Edit here to set a custom Windows username. The default is 'MyWindowsUser'.
       PASSWORD: "MyWindowsPassword" # Edit here to set a password for the Windows user. The default is 'MyWindowsPassword'.

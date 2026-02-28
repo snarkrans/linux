@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:11
+    container_name: nextcloud_db
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./db_data:/var/lib/mysql   # <-- база данных хранится здесь
+    networks:
+      - nextcloud
+
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
+    volumes:
+      - ./nextcloud_data:/var/www/html   # <-- файлы Nextcloud здесь
+      - ./storage_01:/storage_01
+    networks:
+      - nextcloud
+    ports:
+      - "8090:80"
+
+networks:
+  nextcloud:
+    driver: bridge
+

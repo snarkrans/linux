@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"          # HTTP
+      # - "8920:8920"        # HTTPS (если настроишь)
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - /home/snark/downloads/torrent/movies:/media/movies
+      - /home/snark/downloads/torrent/tv:/media/tv
+    environment:
+      - TZ=Europe/Rome

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    image: docker.io/library/mariadb:11
+    image: mariadb:11
     container_name: nextcloud_db
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
@@ -12,12 +12,12 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - ./db_data:/var/lib/mysql  # данные БД сохраняются в домашней папке
+      - ./db_data:/var/lib/mysql
     networks:
       - nextcloud
 
   app:
-    image: docker.io/library/nextcloud:latest
+    image: nextcloud:latest
     container_name: nextcloud_app
     restart: unless-stopped
     depends_on:
@@ -28,15 +28,34 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
-      # (необязательно) можно добавить:
-      # - NEXTCLOUD_DATA_DIR=/var/www/html/data
     volumes:
       - ./nextcloud_data:/var/www/html
-      - ${HOME}/data/soft/nextcloud_st_01:/nextcloud_st_01
+      - ./storage_01:/storage_01
     networks:
       - nextcloud
     ports:
-      - "8090:80"  # rootless может открывать порты >=1024
+      - "8090:80"
+
+  cron:
+    image: nextcloud:latest
+    container_name: nextcloud_cron
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
+    volumes:
+      - ./nextcloud_data:/var/www/html
+      - ./storage_01:/storage_01
+    # Ключевой момент: запускаем от UID/GID 33 (apache/www-data)
+    user: "33:33"
+    entrypoint: /bin/sh -c "while true; do php -f /var/www/html/cron.php; sleep 300; done"
+    networks:
+      - nextcloud
 
 networks:
   nextcloud:

@@ -1,4 +1,3 @@
-
 services:
   plex:
     image: docker.io/linuxserver/plex:latest
@@ -12,7 +11,7 @@ services:
       - VERSION=docker
     volumes:
       - ./config:/config
-      - ${HOME}/downloads/torrent/movies:/data/movies
-      - ${HOME}/downloads/torrent/tv:/data/tv
-      - ${HOME}/usb:/data/tv2
+      - /home/snark/downloads/torrent/movies:/data/movies
+      - /home/snark/downloads/torrent/tv:/data/tv
       - ./transcode:/transcode
+
