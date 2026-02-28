@@ -14,7 +14,7 @@ The framework consists of three components:
 
 The add-on connects Blender to Flamenco. The Manager distributes jobs between Workers and provides a web interface for controlling the entire process. The Workers are the ones that actually perform the rendering. Flamenco can also be used on a single machine: this won’t increase render speed, but it does improve convenience.
 
-![[Pasted image 20260109134810.png]]
+![](20260109134810.png)
 
 In my opinion, Flamenco is a clearly underrated piece of software that deserves more attention from users. It is quick to deploy, does not require complex infrastructure, and at the same time offers functionality comparable to commercial solutions. For small studios and enthusiasts, it’s an excellent way to organize distributed rendering without extra costs or dependence on third-party services.
 
@@ -62,13 +62,13 @@ In my configuration:
 - **m900** acts as a Worker and an NFS server.
     
 
-![[Untitled.png]]
+![](Untitled.png)
 
 After that, make sure the machines can ping each other using their Tailscale IPs — these addresses will be required later when configuring NFS and Flamenco.
 
 `ping m900`
 
-![[2026-01-15_17-34.png]]
+![](2026-01-15_17-34.png)
 
 ---
 
@@ -98,7 +98,7 @@ Verify that the share is mounted successfully:
 
 `mount | grep nfs`
 
-![[2026-01-15_17-40.png]]
+![](2026-01-15_17-40.png)
 
 ---
 
@@ -129,11 +129,11 @@ After that, the wizard will prompt you to install the Blender add-on. Install it
 
 Save your Blender project in the shared directory and submit it for rendering via the **Flamenco Panel** in the _Output Properties_ section.
 
-![[2026-01-15_17-54.png]]
+![](2026-01-15_17-54.png)
 
 ---
 
-![[2026-01-15_17-49.png]]
+![](2026-01-15_17-49.png)
 
 ---
 
