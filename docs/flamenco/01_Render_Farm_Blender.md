@@ -46,7 +46,7 @@ tailscale up --authkey=tskey-KEY
 ```bash
 ping m900
 ```
-![[attachments/2026-01-15_17-34.png]]
+![](attachments/2026-01-15_17-34.png)
 
 ## 2. Установка NFS-шары
 ```bash
