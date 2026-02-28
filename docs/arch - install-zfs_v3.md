@@ -1,22 +1,22 @@
 
 
-[[linux - zfs]] [[linux - шпаргалка]] 
+[[linux - zfs]] [[linux - шпаргалка]]  
 
-https://git.s-morozov.net/sergey/archlive-zfs 
+https://git.s-morozov.net/sergey/archlive-zfs  
 
-https://florianesser.ch/posts/20220714-arch-install-zbm/ 
+https://florianesser.ch/posts/20220714-arch-install-zbm/  
 # Установка Arch Linux на ZFS.
 
-$ wipefs -a /dev/nvme0n1 # удаления сигнатур файловых систем и RAID 
-$ cfdisk -z /dev/vda # Создаем таблицу GPT и два раздела. vda1 - 256Mb и Type - EFI System. vda2 - все свободное место, Type - Solaris Root. 
+$ wipefs -a /dev/nvme0n1 # удаления сигнатур файловых систем и RAID  
+$ cfdisk -z /dev/vda # Создаем таблицу GPT и два раздела. vda1 - 256Mb и Type - EFI System. vda2 - все свободное место, Type - Solaris Root.  
 
-Загружаем FZF модули ядра. 
-https://github.com/eoli3n/archiso-zfs 
-$ curl -s https://raw.githubusercontent.com/eoli3n/archiso-zfs/master/init | bash 
+Загружаем FZF модули ядра.  
+https://github.com/eoli3n/archiso-zfs  
+$ curl -s https://raw.githubusercontent.com/eoli3n/archiso-zfs/master/init | bash  
 
-$ modprobe zfs 
+$ modprobe zfs  
 
-Создаем пул. 
+Создаем пул.  
 zpool create -f -o ashift=12         \
              -O acltype=posixacl       \
              -O relatime=on            \
@@ -45,7 +45,7 @@ $ zpool create -f -o ashift=12     	\
          	-R /mnt               	\
          	zroot /dev/vda2
 
-Создаем пул. Пример с mirror рейдом и сжатием. 
+Создаем пул. Пример с mirror рейдом и сжатием.  
 $ zpool create -f -o ashift=12     	\
          	-O acltype=posixacl   	\
          	-O relatime=on        	\
@@ -59,26 +59,26 @@ $ zpool create -f -o ashift=12     	\
      	-O compression=lz4        \
          	zroot mirror /dev/vda2 /dev/vdb1
 
-Создаем datasets. 
-$ zfs create -o mountpoint=none zroot/data 
-$ zfs create -o mountpoint=none zroot/ROOT 
-$ zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default 
-$ zfs create -o mountpoint=/home zroot/data/home 
-$ zfs create -o mountpoint=/var/cache/pacman/pkg zroot/ROOT/pkg 
+Создаем datasets.  
+$ zfs create -o mountpoint=none zroot/data  
+$ zfs create -o mountpoint=none zroot/ROOT  
+$ zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default  
+$ zfs create -o mountpoint=/home zroot/data/home  
+$ zfs create -o mountpoint=/var/cache/pacman/pkg zroot/ROOT/pkg  
 
-Экспортируем/импортируем пул. 
-$ zpool export zroot 
-$ zpool import -d /dev/vda2 -R /mnt zroot -N 
+Экспортируем/импортируем пул.  
+$ zpool export zroot  
+$ zpool import -d /dev/vda2 -R /mnt zroot -N  
 
-$ zfs load-key zroot 
-(zfs load-key zroot < /keyfile) 
-$ zfs mount zroot/ROOT/default 
-$ zfs mount -a 
+$ zfs load-key zroot  
+(zfs load-key zroot < /keyfile)  
+$ zfs mount zroot/ROOT/default  
+$ zfs mount -a  
  
-Настройка. 
-$ zpool set bootfs=zroot/ROOT/default zroot 
-$ zpool set cachefile=/etc/zfs/zpool.cache zroot 
-$ mkdir -p /mnt/etc/zfs 
+Настройка.  
+$ zpool set bootfs=zroot/ROOT/default zroot  
+$ zpool set cachefile=/etc/zfs/zpool.cache zroot  
+$ mkdir -p /mnt/etc/zfs  
 $ mkdir -p /mnt/efi 
 
 $ cp /etc/zfs/zpool.cache /mnt/etc/zfs/zpool.cache 
